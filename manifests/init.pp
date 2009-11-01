@@ -30,8 +30,8 @@ class syslog::base {
                     "puppet://$server/files/syslog/config/${domain}/syslog.conf",
                     "puppet://$server/files/syslog/config/${operatingsystem}/syslog.conf",
                     "puppet://$server/files/syslog/config/syslog.conf", 
-                    "puppet://$server/syslog/config/${operatingsystem}/syslog.conf",
-                    "puppet://$server/syslog/config/syslog.conf"],
+                    "puppet://$server/modules/syslog/config/${operatingsystem}/syslog.conf",
+                    "puppet://$server/modules/syslog/config/syslog.conf"],
         notify => Service['syslog'],
         require => Package['syslog'],
         owner => root, group => 0, mode => 0644;
@@ -55,7 +55,7 @@ class syslog::centos inherits syslog::base {
                     "puppet://$server/files/syslog/config/CentOS/syslog.${lsbdistrelease}", 
                     "puppet://$server/files/syslog/config/CentOS/syslog", 
                     "puppet://$server/files/config/CentOS/syslog.${lsbdistrelease}", 
-                    "puppet://$server/syslog/config/CentOS/syslog" ],
+                    "puppet://$server/modules/syslog/config/CentOS/syslog" ],
         notify => Service['syslog'],
         owner => root, group => 0, mode => 0644;
     }
