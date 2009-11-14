@@ -11,52 +11,9 @@
 # the Free Software Foundation.
 #
 
-# modules_dir { "syslog": }
-
 class syslog {
     case $operatingsystem {
         centos: { include syslog::centos }
         default: { include syslog::base }
-    }
-}
-
-class syslog::base {
-    package{syslog:
-        ensure => present,
-    }
-
-    file{'/etc/syslog.conf':
-        source => [ "puppet://$server/files/syslog/config/${fqdn}/syslog.conf", 
-                    "puppet://$server/files/syslog/config/${domain}/syslog.conf",
-                    "puppet://$server/files/syslog/config/${operatingsystem}/syslog.conf",
-                    "puppet://$server/files/syslog/config/syslog.conf", 
-                    "puppet://$server/modules/syslog/config/${operatingsystem}/syslog.conf",
-                    "puppet://$server/modules/syslog/config/syslog.conf"],
-        notify => Service['syslog'],
-        require => Package['syslog'],
-        owner => root, group => 0, mode => 0644;
-    }
-
-    service{syslog:
-        ensure => running,
-        enable => true,
-        hasstatus => true,
-        require => Package['syslog'],
-    }
-}
-
-class syslog::centos inherits syslog::base {
-    Package[syslog]{
-        name => 'sysklogd',
-    }
-
-    file{'/etc/sysconfig/syslog':
-        source => [ "puppet://$server/files/syslog/config/CentOS/${fqdn}/syslog", 
-                    "puppet://$server/files/syslog/config/CentOS/syslog.${lsbdistrelease}", 
-                    "puppet://$server/files/syslog/config/CentOS/syslog", 
-                    "puppet://$server/files/config/CentOS/syslog.${lsbdistrelease}", 
-                    "puppet://$server/modules/syslog/config/CentOS/syslog" ],
-        notify => Service['syslog'],
-        owner => root, group => 0, mode => 0644;
     }
 }
