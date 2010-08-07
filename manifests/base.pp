@@ -4,12 +4,12 @@ class syslog::base {
     }
 
     file{'/etc/syslog.conf':
-        source => [ "puppet://$server/modules/site-syslog/config/${fqdn}/syslog.conf", 
-                    "puppet://$server/modules/site-syslog/config/${domain}/syslog.conf",
-                    "puppet://$server/modules/site-syslog/config/${operatingsystem}/syslog.conf",
-                    "puppet://$server/modules/site-syslog/config/syslog.conf", 
-                    "puppet://$server/modules/syslog/config/${operatingsystem}/syslog.conf",
-                    "puppet://$server/modules/syslog/config/syslog.conf"],
+        source => [ "puppet:///modules/site-syslog/config/${fqdn}/syslog.conf", 
+                    "puppet:///modules/site-syslog/config/${domain}/syslog.conf",
+                    "puppet:///modules/site-syslog/config/${operatingsystem}/syslog.conf",
+                    "puppet:///modules/site-syslog/config/syslog.conf", 
+                    "puppet:///modules/syslog/config/${operatingsystem}/syslog.conf",
+                    "puppet:///modules/syslog/config/syslog.conf"],
         notify => Service['syslog'],
         require => Package['syslog'],
         owner => root, group => 0, mode => 0644;
