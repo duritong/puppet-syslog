@@ -12,8 +12,8 @@
 #
 
 class syslog {
-    case $operatingsystem {
-        centos: { include syslog::centos }
-        default: { include syslog::base }
-    }
+  case $::operatingsystem {
+    centos: { include syslog::centos }
+    default: { include syslog::base }
+  }
 }
